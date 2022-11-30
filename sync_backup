@@ -1,0 +1,43 @@
+#!/bin/bash
+
+SOURCE_DIR=/srv/dev-disk-by-uuid-2f2684fb-dea8-4478-92d7-ba365878a16f/
+
+# Check for arguments:
+if [ $# -ne 1 ]
+	then echo "Usage: $0 <target directory>"
+	exit
+fi
+TARGET_DIR=$1
+
+# Check if the target directory exists:
+if [[ ! -d "$TARGET_DIR" ]]
+	then echo "Directory $TARGET_DIR does not exists on your filesystem."
+	exit	
+fi
+# Check if the directory is empty or not (print contents):
+if [ "$(ls -A $TARGET_DIR)" ]
+	then echo "Directory $TARGET_DIR is not empty:"
+	let cnt=0
+	echo "------- $TARGET_DIR -------"
+	for f in "$TARGET_DIR"/*
+	do
+		echo $(basename $f)
+		let cnt=cnt+1
+		if [ $cnt -gt 9 ]
+			then echo "..."; break 
+		fi
+	done
+	echo "------------------"
+	echo
+else
+	echo "Directory $TARGET_DIR is empty."
+fi
+echo "The script will clone RAID1 BACKUP ARRAY ($SOURCE_DIR) to $TARGET_DIR"
+echo "Press enter to run the command \"rsync -avPr --delete --stats $SOURCE_DIR $TARGET_DIR\" or Ctrl+C to exit..."
+read -p ""
+
+
+# Perform the rsync:
+#rsync -avpr --dry-run $SOURCE_DIR $TARGET_DIR
+
+rsync -avPr --delete --stats $SOURCE_DIR $TARGET_DIR

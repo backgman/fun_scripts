@@ -1,0 +1,3 @@
+#!/bin/bash
+proxmox-backup-client backup root.pxar:/ --repository backgman@pbs@10.6.6.20:backup_zfspool
+
