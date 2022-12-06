@@ -1,0 +1,9 @@
+#!/bin/bash
+
+smartctl -a /dev/sda |awk '/Total_LBAs_Written/ {print $10}'
+dd if=/dev/zero of=~/tmpfile bs=1M count=1024
+smartctl -a /dev/sda |awk '/Total_LBAs_Written/ {print $10}'
+rm ~/tmpfile
+dd if=/dev/zero of=~/tmpfile bs=1M count=1024
+smartctl -a /dev/sda |awk '/Total_LBAs_Written/ {print $10}'
+rm ~/tmpfile
