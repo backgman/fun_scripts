@@ -1,0 +1,5 @@
+#!/bin/bash
+
+find MOVIES1/ -type f \( -iname \*.mkv -o -iname \*.mp4 -o -iname \*.avi -o -iname \*.divx -o -iname \*.m4v \)|wc -l
+find MOVIES2/ -type f \( -iname \*.mkv -o -iname \*.mp4 -o -iname \*.avi -o -iname \*.divx -o -iname \*.m4v \)|wc -l
+find Sequels/ -type f \( -iname \*.mkv -o -iname \*.mp4 -o -iname \*.avi -o -iname \*.divx -o -iname \*.m4v \)|wc -l

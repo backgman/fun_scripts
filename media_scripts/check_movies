@@ -1,0 +1,13 @@
+#!/bin/bash
+
+while read i; do
+  containsDir="0"
+  for ii in "${i}"/*; do
+    if [[ -d "${ii}" ]]; then
+      containsDir="1"
+    fi
+  done
+  if [[ "${containsDir}" -eq "0" && "$(find "${i}" -type f -regextype posix-egrep -iregex ".*\.(aac|flac|e-ac3|flac|mp3|m4a|wav|mp4|mkv|asf|avi|mov|mpegts|ts|wmv)$" | wc -l)" -ne "1" ]]; then
+    echo "${i}"
+  fi
+done < <(find "$1" -type d)
